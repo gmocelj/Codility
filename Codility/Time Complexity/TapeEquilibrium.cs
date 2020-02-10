@@ -8,30 +8,22 @@ namespace Codility.Time_Complexity
     {
         public int solution(int[] A)
         {
-            List<int> results = new List<int>();
-            for (int i = 0; i < A.Length - 2; i++)
+            var results = new List<int>();
+            int firstSum = 0;
+            int secondSum = 0;
+            Array.ForEach(A.Take(1).ToArray(), x => { firstSum += x; });
+            Array.ForEach(A.Skip(1).ToArray(), x => { secondSum += x; });
+            results.Add(Math.Abs(firstSum - secondSum));
+
+            for (int i = 1; i < A.Length - 1; i++)
             {
-                results.Add(CalculateParts(i + 1, A));
+                firstSum += A[i];
+                secondSum -= A[i];
+
+                results.Add(Math.Abs(firstSum - secondSum));
             }
 
             return results.Min();
-        }
-
-        private int CalculateParts(int secondBegin, int[] A)
-        {
-            int firstResult = 0;
-            int secondResult = 0;
-
-            for (int i = 0; i < secondBegin; i++)
-            {
-                firstResult += A[i];
-            }
-            for (int y = secondBegin; y < A.Length; y++)
-            {
-                secondResult += A[y];
-            }
-
-            return Math.Abs(firstResult - secondResult);
         }
     }
 }
