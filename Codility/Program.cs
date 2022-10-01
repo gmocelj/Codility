@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Codility
+﻿namespace Codility
 {
     class Program
     {
