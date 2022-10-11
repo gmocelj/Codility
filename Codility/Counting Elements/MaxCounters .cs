@@ -1,41 +1,45 @@
-class Solution {
-    public int[] solution(int N, int[] A) 
+namespace Codility
+{
+    class Solution
     {
-        var previousMaxCount = 0;
-        var maxCounter = 0;
-        var outputElements = new int[N];
-        foreach (var element in A)
+        public int[] solution(int N, int[] A)
         {
-            if(1<= element && element<=N)
+            var previousMaxCount = 0;
+            var maxCounter = 0;
+            var outputElements = new int[N];
+            foreach (var element in A)
             {
-                if(outputElements[element-1] < previousMaxCount)
+                if (1 <= element && element <= N)
                 {
-                    outputElements[element-1] = previousMaxCount + 1;
+                    if (outputElements[element - 1] < previousMaxCount)
+                    {
+                        outputElements[element - 1] = previousMaxCount + 1;
+                    }
+                    else
+                    {
+                        outputElements[element - 1] += 1;
+                    }
+
+                    if (maxCounter < outputElements[element - 1])
+                    {
+                        maxCounter = outputElements[element - 1];
+                    }
                 }
                 else
                 {
-                    outputElements[element-1] +=1;
+                    previousMaxCount = maxCounter;
                 }
+            }
 
-                if(maxCounter < outputElements[element-1])
+            for (var i = 0; i < N; i++)
+            {
+                if (outputElements[i] < previousMaxCount)
                 {
-                    maxCounter = outputElements[element-1];
+                    outputElements[i] = previousMaxCount;
                 }
             }
-            else
-            {
-                previousMaxCount = maxCounter;
-            }
-        }
 
-        for(var i=0;i< N;i++)
-        {
-            if (outputElements[i] < previousMaxCount)
-            {
-                outputElements[i] = previousMaxCount;
-            }
+            return outputElements;
         }
-        
-        return outputElements;
     }
 }
